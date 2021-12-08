@@ -4,16 +4,15 @@ export default function Head() {
   return (
     <head>
       <html lang="ja" />
-      <title>ganyariya</title>
-      <meta name="description" content="ganyariya's portfolio" />
+      <title>OBS-Text-Glitcch</title>
+      <meta name="description" content="OBS-Text-Glitch" />
       <meta name="robots" content="all" />
-      {/* OGP */}
       <head prefix="og: http://ogp.me/ns#" />
       <meta property="og:url" content="https://ganyariya.netlify.app/" />
       <meta property="og:type" content="website" />
-      <meta property="og:title" content="ganariya's portfolio" />
-      <meta property="og:description" content="ganariya's portfolio" />
-      <meta property="og:site_name" content="ganariya's portfolio" />
+      <meta property="og:title" content="OBS-Text-Glitch" />
+      <meta property="og:description" content="OBS-Text-Glitch" />
+      <meta property="og:site_name" content="OBS-Text-Glitch" />
       <meta
         property="og:image"
         content="https://i.gyazo.com/a44f7c81df21d93f8b7c3d15ba97d52f.png"
