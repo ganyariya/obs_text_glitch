@@ -15,7 +15,7 @@ export default function Head() {
       <meta property="og:site_name" content="OBS-Text-Glitch" />
       <meta
         property="og:image"
-        content="https://i.gyazo.com/a44f7c81df21d93f8b7c3d15ba97d52f.png"
+        content="https://i.gyazo.com/c19142cc88800bf2a60091743a4f694a.png"
       />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@ganyariya" />
