@@ -1,16 +1,16 @@
 import React from "react";
 import Container from "./../components/Container.tsx";
 import Header from "./../components/Header.tsx";
+import { HexColorPicker } from "https://esm.sh/react-colorful";
 
 import { useGlitch } from "https://deno.land/x/text_glitch@v0.1.1/mod.ts";
-import { useRouter } from "https://deno.land/x/aleph/framework/react/mod.ts";
 
 const defaultText = "Hello, World!";
 const defaultSize = 100;
+const defaultColor = "#000000";
 
 export default function Home() {
-  const { query } = useRouter();
-
+  const [color, setColor] = React.useState("#000000");
   const [text, setText] = React.useState("");
   const [fontSize, setFontSize] = React.useState(1);
   const [glitchedText, setGlitchedText] = useGlitch(text);
@@ -19,7 +19,15 @@ export default function Home() {
     setText(defaultText);
     setGlitchedText(defaultText);
     setFontSize(defaultSize);
+    setColor(defaultColor);
   }, []);
+
+  const onClick = () => {
+    const url = `/obs?text=${text}&fontSize=${fontSize}&color=${color.substr(
+      1
+    )}`;
+    window.open(url);
+  };
 
   return (
     <Container>
@@ -43,35 +51,43 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 flex">
-            <div className="w-1/3">
-              <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
-                Font Size
-              </label>
-              <input
-                onChange={(e) => setFontSize(Number(e.target.value))}
-                type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                value={fontSize}
-              />
-            </div>
-            <div className="w-1/3 mx-10">
+            <div className="w-1/4 mx">
               <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                 Font Color
               </label>
-              <input
-                type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              <HexColorPicker
+                color={color}
+                onChange={setColor}
+                style={{ height: "150px" }}
               />
             </div>
-            <div className="w-1/8 mx-10">
-              <button className="bg-gray-700 border border-gray-300 text-white block w-full p-4">
-                Glitch!
-              </button>
+            <div className="w-3/4 ">
+              <div>
+                <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                  Font Size
+                </label>
+                <input
+                  onChange={(e) => setFontSize(Number(e.target.value))}
+                  type="number"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  value={fontSize}
+                />
+              </div>
+              <div className="mt-8">
+                <button
+                  className="bg-gray-700 border border-gray-300 text-white block w-full p-4"
+                  onClick={onClick}
+                >
+                  Glitch!
+                </button>
+              </div>
             </div>
           </div>
         </form>
         <div className="my-36">
-          <div style={{ fontSize: `${fontSize}px` }}>{glitchedText}</div>
+          <div style={{ fontSize: `${fontSize}px`, color: color }}>
+            {glitchedText}
+          </div>
         </div>
       </div>
     </Container>
