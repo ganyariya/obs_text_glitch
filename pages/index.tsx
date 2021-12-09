@@ -8,11 +8,17 @@ const defaultSize = 100;
 export default function Home() {
   const { query } = useRouter();
 
-  const [text, setText] = React.useState(query.get("text") ?? defaultText);
-  const [fontSize, setFontSize] = React.useState(
-    Number(query.get("fontSize") ?? defaultSize)
-  );
+  const [text, setText] = React.useState(defaultText);
+  const [fontSize, setFontSize] = React.useState(defaultSize);
   const [glitchedText, setGlitchedText] = useGlitch(text);
+
+  React.useEffect(() => {
+    const queryText = query.get("text");
+    const queryFontSize = query.get("fontSize");
+    console.log(queryText, queryFontSize);
+    if (queryText) setText(queryText);
+    if (queryFontSize) setFontSize(Number(queryFontSize));
+  }, []);
 
   return (
     <main>
