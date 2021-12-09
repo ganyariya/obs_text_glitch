@@ -1,4 +1,7 @@
 import React from "react";
+import Container from "./../components/Container.tsx";
+import Header from "./../components/Header.tsx";
+
 import { useGlitch } from "https://deno.land/x/text_glitch@v0.1.1/mod.ts";
 import { useRouter } from "https://deno.land/x/aleph/framework/react/mod.ts";
 
@@ -8,56 +11,69 @@ const defaultSize = 100;
 export default function Home() {
   const { query } = useRouter();
 
-  const [text, setText] = React.useState(defaultText);
-  const [fontSize, setFontSize] = React.useState(defaultSize);
+  const [text, setText] = React.useState("");
+  const [fontSize, setFontSize] = React.useState(1);
   const [glitchedText, setGlitchedText] = useGlitch(text);
 
   React.useEffect(() => {
-    const queryText = query.get("text");
-    const queryFontSize = query.get("fontSize");
-    console.log(queryText, queryFontSize);
-    if (queryText) setText(queryText);
-    if (queryFontSize) setFontSize(Number(queryFontSize));
+    setText(defaultText);
+    setGlitchedText(defaultText);
+    setFontSize(defaultSize);
   }, []);
 
   return (
-    <main>
+    <Container>
+      <Header />
       <div>
-        <div className="flex flex-wrap">
-          <div className="relative w-full">
-            <input
-              onChange={(e) => {
-                setText(e.target.value);
-                setGlitchedText(e.target.value);
-              }}
-              className="py-2 mt-4 leading-relaxed appearance-none bg-white w-1/3"
-              type="text"
-              placeholder="text"
-              value={text}
-            />
-            <input
-              onChange={(e) => setFontSize(Number(e.target.value))}
-              className="py-2 mt-4 mx-4  w-16 leading-relaxed appearance-none bg-white"
-              type="number"
-              placeholder="size"
-              value={fontSize}
-            />
-            <button
-              onClick={() => {
-                window.open(`/?text=${text}&fontSize=${fontSize}`);
-              }}
-              className="py-2 mt-4 mx-4  w-16 leading-relaxed appearance-none bg-white"
-              type="submit"
-              placeholder="size"
-            >
-              Decide
-            </button>
+        <form className="mt-10">
+          <div className="mt-8">
+            <div>
+              <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                Glitch Text
+              </label>
+              <input
+                onChange={(e) => {
+                  setText(e.target.value);
+                  setGlitchedText(e.target.value);
+                }}
+                type="text"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={text}
+              />
+            </div>
           </div>
+          <div className="mt-8 flex">
+            <div className="w-1/3">
+              <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                Font Size
+              </label>
+              <input
+                onChange={(e) => setFontSize(Number(e.target.value))}
+                type="number"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                value={fontSize}
+              />
+            </div>
+            <div className="w-1/3 mx-10">
+              <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                Font Color
+              </label>
+              <input
+                type="number"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-md focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              />
+            </div>
+            <div className="w-1/8 mx-10">
+              <button className="bg-gray-700 border border-gray-300 text-white block w-full p-4">
+                Glitch!
+              </button>
+            </div>
+          </div>
+        </form>
+        <div className="my-36">
+          <div style={{ fontSize: `${fontSize}px` }}>{glitchedText}</div>
         </div>
       </div>
-      <div className="text-white py-40" style={{ fontSize: `${fontSize}px` }}>
-        {glitchedText}
-      </div>
-    </main>
+    </Container>
   );
 }

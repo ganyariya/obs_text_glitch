@@ -20,7 +20,6 @@ export default function Head() {
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content="@ganyariya" />
       <meta name="twitter:creator" content="@ganyariya" />
-      <style>{"body { background-color: #00FF00; }"}</style>
     </head>
   );
 }
