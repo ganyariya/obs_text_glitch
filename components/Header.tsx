@@ -9,7 +9,10 @@ const Header = () => {
             <span className="ml-1 text-xl">OBS-Text-Glitch</span>
           </a>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
-            <a href="#story" className="mr-8 hover:text-gray-900">
+            <a
+              href="https://ganyariya.netlify.app/"
+              className="mr-8 hover:text-gray-900"
+            >
               ganyariya
             </a>
           </nav>
