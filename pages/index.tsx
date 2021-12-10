@@ -12,8 +12,11 @@ const defaultColor = "#000000";
 export default function Home() {
   const [color, setColor] = React.useState("#000000");
   const [text, setText] = React.useState("");
+  const [isRight, setIsRight] = React.useState(false);
   const [fontSize, setFontSize] = React.useState(1);
   const [glitchedText, setGlitchedText] = useGlitch(text);
+
+  const isRightText = isRight ? "text-right" : "text-left";
 
   React.useEffect(() => {
     setText(defaultText);
@@ -25,7 +28,7 @@ export default function Home() {
   const onClick = () => {
     const url = `/obs?text=${text}&fontSize=${fontSize}&color=${color.substr(
       1
-    )}`;
+    )}&isRight=${isRightText}`;
     window.open(url);
   };
 
@@ -51,17 +54,32 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 flex">
-            <div className="w-1/4 mx">
-              <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
-                Font Color
-              </label>
-              <HexColorPicker
-                color={color}
-                onChange={setColor}
-                style={{ height: "150px" }}
-              />
+            <div className="w-1/2 flex">
+              <div>
+                <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                  Font Color
+                </label>
+                <HexColorPicker
+                  color={color}
+                  onChange={setColor}
+                  style={{ height: "150px" }}
+                />
+              </div>
+              <div className="ml-4">
+                <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
+                  Is Right
+                </label>
+                <input
+                  type="checkbox"
+                  className="h-10 w-10 text-white"
+                  checked={isRight}
+                  onChange={(e) => {
+                    setIsRight(e.target.checked);
+                  }}
+                />
+              </div>
             </div>
-            <div className="w-3/4 ">
+            <div className="w-1/2">
               <div>
                 <label className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300">
                   Font Size
@@ -84,7 +102,7 @@ export default function Home() {
             </div>
           </div>
         </form>
-        <div className="my-36">
+        <div className={`my-36  ${isRightText}`}>
           <div style={{ fontSize: `${fontSize}px`, color: color }}>
             {glitchedText}
           </div>

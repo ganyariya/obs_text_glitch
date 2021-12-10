@@ -8,20 +8,25 @@ export default function Home() {
   const [color, setColor] = React.useState("#000000");
   const [fontSize, setFontSize] = React.useState(1);
   const [glitchedText, setGlitchedText] = useGlitch("");
+  const [isRightText, setIsRightText] = React.useState("text-left");
 
   React.useEffect(() => {
     const queryText = query.get("text");
     const queryFontSize = query.get("fontSize");
     const queryColor = query.get("color");
+    const queryIsRightText = query.get("isRight");
     if (queryText) setGlitchedText(queryText);
     if (queryFontSize) setFontSize(Number(queryFontSize));
     if (queryColor) setColor(`#${queryColor}`);
+    if (queryIsRightText) setIsRightText(queryIsRightText);
   }, []);
 
   return (
     <div>
-      <div style={{ fontSize: `${fontSize}px`, color: color }}>
-        {glitchedText}
+      <div className={`${isRightText}`}>
+        <div style={{ fontSize: `${fontSize}px`, color: color }}>
+          {glitchedText}
+        </div>
       </div>
       <style>{"body { background-color: #00FF00; }"}</style>
     </div>
