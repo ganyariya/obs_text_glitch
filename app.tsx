@@ -1,4 +1,4 @@
-import "https://esm.sh/tailwindcss/dist/tailwind.min.css";
+import "https://cdn.esm.sh/tailwindcss@2.2.19/dist/tailwind.min.css";
 
 import React, { FC } from "react";
 import Head from "./components/Head.tsx";
